@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/skakunma/CafkaTestProject/internal/config"
+	"github.com/skakunma/CafkaTestProject/internal/jwtAuth"
 	"github.com/skakunma/CafkaTestProject/internal/storage"
 	"net/http"
 	"strings"
@@ -60,7 +61,7 @@ func Login(cfg *config.Config) gin.HandlerFunc {
 			return
 		}
 
-		token, err := BuildJWTString(userId)
+		token, err := jwtAuth.BuildJWTString(userId)
 
 		c.SetCookie("jwt", token, 3600, "/", "", false, false)
 
